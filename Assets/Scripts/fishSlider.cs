@@ -16,18 +16,16 @@ public class fishSlider : MonoBehaviour
     public float maxRandHeight;
     public float minRandHeight;
 
-    public bool flipMovement;  
+    public bool flipMovement;
 
     void Start()
     {
         maxRandHeight = Mathf.Round(Random.Range(0.5f, 1) * 100) * 0.01f;
         minRandHeight = Mathf.Round(Random.Range(0, 0.5f) * 100) * 0.01f;
-        
-        difficulty = (float)GameObject.Find("fish").GetComponent<fishVariations>().fishType * 0.5f;
 
         timeInterval = timeIntervalMax;
     }
-    
+
     void Update()
     {
         if (slider.value == maxRandHeight || slider.value == minRandHeight)
