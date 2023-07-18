@@ -10,14 +10,15 @@ public class fishVariationController : MonoBehaviour
     public GameObject fish;
 
     public int fishTypesMax;
-    public int fishType;
 
     public Sprite[] fishSprites;
 
     // Start is called before the first frame update
     void Start()
     {
+        // set fish type max to the length of the array
+        fishTypesMax = fishSprites.Length;
         // select random sprite from fishSprites array
-        fish.GetComponent<Image>().sprite = fishSprites[Random.Range(0, fishSprites.Length)];
+        fish.GetComponent<Image>().sprite = fishSprites[Random.Range(0, fishTypesMax)];
     }
 }
