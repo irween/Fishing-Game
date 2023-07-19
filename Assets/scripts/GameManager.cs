@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject player;
+    public bool isFishCaught = false;
 
-    public float maxFishCatchCount;
-
-    public bool isFishCaught;
+    public GameObject catchingFishSliders;
 
     // Start is called before the first frame update
     void Start()
     {
-        player.GetComponent<playerSliderController>().maxFishCatchCount = maxFishCatchCount;
-        isFishCaught = false;
+        catchingFishSliders.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
-    { 
-        // get the players fish catch count
-        float fishCatchCount = player.GetComponent<playerSliderController>().fishCatchCount;
-
-        if (fishCatchCount >= maxFishCatchCount)
+    {
+        if (isFishCaught)
         {
-            // print to debug log that the player has caught the fish
-            Debug.Log("You caught the fish!");
-            isFishCaught = true;
+
         }
+    }
+
+    public void catchingFish()
+    {
+        // set the catching fish sliders to active
+        catchingFishSliders.SetActive(true);
     }
 }
