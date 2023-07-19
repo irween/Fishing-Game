@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public int fishIndex;
 
-    public bool[] hasFish;
+    public IDictionary<int, int> inventory = new Dictionary<int, int>();
 
     public GameObject[] icons;
 
@@ -29,9 +29,10 @@ public class GameManager : MonoBehaviour
         // for each icon in the icons list, set the hasFish boolean to false
         for (int i = 0; i < icons.Length; i++)
         {
-            hasFish[i] = false;
             icons[i].GetComponent<Image>().preserveAspect = true;
             icons[i].SetActive(false);
+
+            inventory.Add(i, 0);
         }
     }
 
@@ -55,17 +56,39 @@ public class GameManager : MonoBehaviour
 
     public void updateFishInventory(int fishIndex)
     {
-        for (int i = 0; i < hasFish.Length; i++)
+        // iterate through each inventory slot
+        for (int i = 0; i < icons.Length; i++)
         {
-            if (hasFish[i] == false)
+            // get the inventory slot's image component
+            Image iconImage = icons[i].GetComponent<Image>();
+
+            // if the inventory slot is empty
+            if (iconImage.sprite == null)
             {
-                hasFish[i] = true;
+                // set the inventory slot's image to the fish's sprite
                 icons[i].SetActive(true);
-                icons[i].GetComponent<Image>().sprite = fishSprites[fishIndex];
-                icons[i].GetComponent<Image>().preserveAspect = true;
-                caughtFish[i] = fishIndex;
+                iconImage.GetComponent<Image>().sprite = fishSprites[fishIndex];
+                iconImage.GetComponent<Image>().preserveAspect = true;
+                // add the fish to the inventory
+                inventory[i] = fishIndex;
+                // print the inventory dictionary
+                foreach (KeyValuePair<int, int> entry in inventory)
+                {
+                    Debug.Log("Key: " + entry.Key + " Value: " + entry.Value);
+                }
+
+                // exit the loop
                 break;
             }
         }
+    }
+
+    public void removeItemFromInventory(int iconIndex)
+    {
+        // update the inventory dictionary
+        inventory[iconIndex] = 0;
+        // update the inventory icon
+        icons[iconIndex].GetComponent<Image>().sprite = null;
+        icons[iconIndex].SetActive(false);
     }
 }

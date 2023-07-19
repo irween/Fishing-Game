@@ -5,11 +5,9 @@ using UnityEngine.UI;
 
 public class inventoryController : MonoBehaviour
 {
-    public bool[] hasFish;
-
-    public Sprite[] fishSprites;
-
+    public IDictionary<int, int> inventory = new Dictionary<int, int>();
     public GameObject[] icons;
+    public Sprite[] fishSprites;
 
     public GameObject gameManager;
 
@@ -19,21 +17,27 @@ public class inventoryController : MonoBehaviour
         // get each inventory slot icon
         icons = GameObject.FindGameObjectsWithTag("inventoryIcon");
         fishSprites = gameManager.GetComponent<GameManager>().fishSprites;
-        // for each icon in the icons list, set the hasFish boolean to false
-        for (int i = 0; i < icons.Length; i++)
-        {
-            hasFish[i] = false;
-        }
     }
 
     public void updateInventory(int fishIndex)
     {
-        for (int i = 0; i < hasFish.Length; i++)
+        // iterate through each inventory slot
+        for (int i = 0; i < icons.Length; i++)
         {
-            if (hasFish[i] == false)
+            // get the inventory slot's image component
+            Image iconImage = icons[i].GetComponent<Image>();
+
+            // if the inventory slot is empty
+            if (iconImage.sprite == null)
             {
-                hasFish[i] = true;
-                icons[i].GetComponent<Image>().sprite = fishSprites[fishIndex];
+                // set the inventory slot's image to the fish's sprite
+                iconImage.sprite = fishSprites[fishIndex];
+
+                // add the fish to the inventory
+                inventory.Add(i, fishIndex);
+
+
+                // exit the loop
                 break;
             }
         }
