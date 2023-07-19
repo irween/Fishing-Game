@@ -8,6 +8,9 @@ public class fishCatchController : MonoBehaviour
     public GameObject gameManager;
 
     public float maxFishCatchCount;
+    public int fishIndex;
+
+    public bool isFishCaught = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +24,12 @@ public class fishCatchController : MonoBehaviour
         // get the players fish catch count
         float fishCatchCount = player.GetComponent<playerSliderController>().fishCatchCount;
 
-        if (fishCatchCount >= maxFishCatchCount)
+        if (fishCatchCount >= maxFishCatchCount & !isFishCaught)
         {
             // print to debug log that the player has caught the fish
-            Debug.Log("You caught the fish!");
             gameManager.GetComponent<GameManager>().isFishCaught = true;
+            Debug.Log("You caught the fish!");
+            isFishCaught = true;
         }
     }
 }
