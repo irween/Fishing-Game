@@ -5,10 +5,8 @@ using UnityEngine;
 public class fishCatchController : MonoBehaviour
 {
     public GameObject player;
-    public GameObject gameManager;
 
     public float maxFishCatchCount;
-    public int fishIndex;
 
     public bool isFishCaught = false;
 
@@ -27,7 +25,7 @@ public class fishCatchController : MonoBehaviour
         if (fishCatchCount >= maxFishCatchCount & !isFishCaught)
         {
             // print to debug log that the player has caught the fish
-            gameManager.GetComponent<GameManager>().isFishCaught = true;
+            GetComponent<GameManager>().isFishCaught = true;
             Debug.Log("You caught the fish!");
             isFishCaught = true;
         }

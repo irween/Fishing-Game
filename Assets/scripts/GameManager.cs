@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] icons;
 
-    public int[] caughtFish;
+    public GameObject fishSlider;
+    public GameObject fishIcon;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("You caught the fish!");
             isFishCaught = false;
             updateFishInventory(fishIndex);
+            // hide the catching fish sliders
+            catchingFishSliders.SetActive(false);
         }        
     }
 
@@ -90,5 +93,14 @@ public class GameManager : MonoBehaviour
         // update the inventory icon
         icons[iconIndex].GetComponent<Image>().sprite = null;
         icons[iconIndex].SetActive(false);
+    }
+
+    public void resetCatchFish()
+    {
+        // call the resetFish function in the fishVariationController script and the fishSlider script
+        fishIcon.GetComponent<fishVariationController>().resetFish();
+        fishSlider.GetComponent<fishSlider>().resetSlider();
+        GetComponent<fishCatchController>().isFishCaught = false;
+        isFishCaught = false;
     }
 }

@@ -28,4 +28,12 @@ public class fishVariationController : MonoBehaviour
         fish.GetComponent<Image>().sprite = fishSprites[fishIndex];
         gameManager.GetComponent<GameManager>().fishIndex = fishIndex;
     }
+
+    public void resetFish()
+    {
+        // select random sprite from fishSprites array
+        fishIndex = Random.Range(0, fishTypesMax);
+        fish.GetComponent<Image>().sprite = fishSprites[fishIndex];
+        gameManager.GetComponent<GameManager>().fishIndex = fishIndex;
+    }
 }

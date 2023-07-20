@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour
         // if the player presses the cast key, the cast animation will play
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            gameManager.GetComponent<GameManager>().resetCatchFish();
             GetComponent<Animator>().SetTrigger("casting");
         }
     }

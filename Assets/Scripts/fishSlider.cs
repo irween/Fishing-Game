@@ -26,6 +26,15 @@ public class fishSlider : MonoBehaviour
         timeInterval = timeIntervalMax;
     }
 
+    public void resetSlider()
+    {
+        slider.value = 0.5f;
+        maxRandHeight = Mathf.Round(Random.Range(0.5f, 1) * 100) * 0.01f;
+        minRandHeight = Mathf.Round(Random.Range(0, 0.5f) * 100) * 0.01f;
+
+        timeInterval = timeIntervalMax;
+    }
+
     void Update()
     {
         if (slider.value == maxRandHeight || slider.value == minRandHeight)
