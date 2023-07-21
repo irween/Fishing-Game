@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,20 +11,21 @@ public class GameManager : MonoBehaviour
     public GameObject catchingFishSliders;
     public GameObject playerSlider;
     public GameObject player;
+    public GameObject sellObject;
+    public GameObject sellMenu;
+    public GameObject fishSlider;
+    public GameObject fishIcon;
+    public GameObject[] icons;
     public Sprite[] fishSprites;
 
     public int fishIndex;
 
-    public IDictionary<int, int> inventory = new Dictionary<int, int>();
-    
-    public GameObject[] icons;
-
-    public GameObject fishSlider;
-    public GameObject fishIcon;
+    public IDictionary<int, float> inventory = new Dictionary<int, float>();
 
     // Start is called before the first frame update
     void Start()
     {
+        sellMenu.SetActive(false);
         catchingFishSliders.SetActive(false);
 
         // get each inventory slot icon
@@ -74,10 +76,11 @@ public class GameManager : MonoBehaviour
                 icons[i].SetActive(true);
                 iconImage.GetComponent<Image>().sprite = fishSprites[fishIndex];
                 iconImage.GetComponent<Image>().preserveAspect = true;
-                // add the fish to the inventory
-                inventory[i] = fishIndex;
+                // add the fish quality to the inventory
+                float fishQuality = (fishIndex + 1) * Random.Range(1, 2);
+                inventory[i] = fishQuality;
                 // print the inventory dictionary
-                foreach (KeyValuePair<int, int> entry in inventory)
+                foreach (KeyValuePair<int, float> entry in inventory)
                 {
                     Debug.Log("Key: " + entry.Key + " Value: " + entry.Value);
                 }
@@ -107,5 +110,18 @@ public class GameManager : MonoBehaviour
         player.GetComponent<playerController>().catchingFish = false;
         GetComponent<fishCatchController>().isFishCaught = false;
         isFishCaught = false;
+    }
+
+    public void triggerSellingEvent(int inventoryIndex)
+    {
+        sellMenu.SetActive(true);
+        Debug.Log(inventoryIndex);
+        Debug.Log(inventory[inventoryIndex]);
+        sellObject.GetComponent<sellOffers>().SellingFish(inventory[inventoryIndex]);
+    }
+
+    public void finishSelling()
+    {
+        sellMenu.SetActive(false);
     }
 }

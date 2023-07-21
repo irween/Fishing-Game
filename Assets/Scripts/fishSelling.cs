@@ -23,9 +23,7 @@ public class fishSelling : MonoBehaviour
 
     public void triggerSellEvent()
     {
-        // get the inventory dictionary from the game manager
-        IDictionary<int, int> inventory = gameManager.GetComponent<GameManager>().inventory;
+        gameManager.GetComponent<GameManager>().triggerSellingEvent(iconIndex);
         gameManager.GetComponent<GameManager>().removeItemFromInventory(iconIndex);
-
     }
 }
