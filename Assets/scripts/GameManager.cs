@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public int fishIndex;
 
     public IDictionary<int, int> inventory = new Dictionary<int, int>();
-
+    
     public GameObject[] icons;
 
     public GameObject fishSlider;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class selling : MonoBehaviour
+public class fishSelling : MonoBehaviour
 {
     // game objects
     public GameObject gameManager;
@@ -26,5 +26,6 @@ public class selling : MonoBehaviour
         // get the inventory dictionary from the game manager
         IDictionary<int, int> inventory = gameManager.GetComponent<GameManager>().inventory;
         gameManager.GetComponent<GameManager>().removeItemFromInventory(iconIndex);
+
     }
 }
