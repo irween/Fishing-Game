@@ -6,6 +6,8 @@ public class playerController : MonoBehaviour
 {
     public GameObject gameManager;
 
+    public bool catchingFish = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +18,10 @@ public class playerController : MonoBehaviour
     void Update()
     {
         // if the player presses the cast key, the cast animation will play
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) & !catchingFish)
         {
-            gameManager.GetComponent<GameManager>().resetCatchFish();
             GetComponent<Animator>().SetTrigger("casting");
+            catchingFish = true;
         }
     }
 

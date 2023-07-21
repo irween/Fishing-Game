@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public bool isFishCaught = false;
 
     public GameObject catchingFishSliders;
-
+    public GameObject playerSlider;
+    public GameObject player;
     public Sprite[] fishSprites;
 
     public int fishIndex;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
             updateFishInventory(fishIndex);
             // hide the catching fish sliders
             catchingFishSliders.SetActive(false);
+            resetCatchFish();
         }        
     }
 
@@ -100,6 +102,9 @@ public class GameManager : MonoBehaviour
         // call the resetFish function in the fishVariationController script and the fishSlider script
         fishIcon.GetComponent<fishVariationController>().resetFish();
         fishSlider.GetComponent<fishSlider>().resetSlider();
+        playerSlider.GetComponent<playerSliderController>().fishCatchCount = 0;
+        playerSlider.GetComponent<Slider>().value = 0;
+        player.GetComponent<playerController>().catchingFish = false;
         GetComponent<fishCatchController>().isFishCaught = false;
         isFishCaught = false;
     }

@@ -536,6 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1660607195}
+  catchingFish: 0
 --- !u!1 &186480383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,7 +2111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishSlider: {fileID: 1562424829}
   playerSlider: {fileID: 793699938}
-  hitbox: 0.4
+  hitbox: 0.3
   timeInterval: 0
   timeIntervalMax: 2
   fishCatchCount: 0
@@ -3434,9 +3435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 793699936}
-  gameManager: {fileID: 1660607195}
-  maxFishCatchCount: 1000
-  fishIndex: 0
+  maxFishCatchCount: 2000
   isFishCaught: 0
 --- !u!114 &1660607198
 MonoBehaviour:
@@ -3452,6 +3451,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFishCaught: 0
   catchingFishSliders: {fileID: 560601190}
+  playerSlider: {fileID: 793699936}
+  player: {fileID: 171220329}
   fishSprites:
   - {fileID: 21300000, guid: be19ef3eda765b84697166ff3bbb8a9b, type: 3}
   - {fileID: 21300000, guid: 9e90a81abad2095448bd8d8a16bcc980, type: 3}
