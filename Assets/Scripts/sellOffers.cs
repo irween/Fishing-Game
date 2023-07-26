@@ -12,6 +12,8 @@ public class sellOffers : MonoBehaviour
     public TMP_Text[] sellButtonText;
     public TMP_Text moneyText;
 
+    public GameObject noticeBoard;
+
     public GameObject gameManager;
 
     public List<float> offers = new List<float>();
@@ -34,6 +36,7 @@ public class sellOffers : MonoBehaviour
     public float maxHighOffer;
 
     public float cost;
+    public float newMoney;
 
     private void Start()
     {
@@ -71,35 +74,41 @@ public class sellOffers : MonoBehaviour
 
     public void SellButton(int buttonIndex)
     {
-        if (buttonIndex == lowOfferIndex)
+        Debug.Log(buttonIndex);
+
+        float currentMoney = gameManager.GetComponent<GameManager>().money;
+
+        if (Random.Range(1, 100) <= lowOfferRisk & buttonIndex == lowOfferIndex)
         {
-            Debug.Log(buttonIndex);
-
-            if (Random.Range(1, 100) <= lowOfferRisk & buttonIndex == lowOfferIndex)
-            {
-                Debug.Log(lowOfferIndex);
-                moneyText.text = "$" + offers[lowOfferIndex].ToString();
-            }
-
-            else if (Random.Range(1, 100) <= mediumOfferRisk & buttonIndex == medOfferIndex)
-            {
-                Debug.Log(medOfferIndex);
-
-                moneyText.text = "$" + offers[medOfferIndex].ToString();
-            }
-
-            else if (Random.Range(1, 100) <= highOfferRisk & buttonIndex == highOfferIndex)
-            {
-                Debug.Log(highOfferIndex);
-
-                moneyText.text = "$" + offers[highOfferIndex].ToString();
-            }
+            Debug.Log(lowOfferIndex);
+            newMoney = currentMoney + offers[lowOfferIndex];
+            moneyText.text = "$" + newMoney;
         }
 
-        if (moneyText.text != "$0")
+        if (Random.Range(1, 100) <= mediumOfferRisk & buttonIndex == medOfferIndex)
         {
-            offers.Clear();
-            gameManager.GetComponent<GameManager>().finishSelling();
+            Debug.Log(medOfferIndex);
+            newMoney = currentMoney + offers[medOfferIndex];
+            moneyText.text = "$" + newMoney;
         }
+
+        if (Random.Range(1, 100) <= highOfferRisk & buttonIndex == highOfferIndex)
+        {
+            Debug.Log(highOfferIndex);
+            newMoney = currentMoney + offers[highOfferIndex];
+            moneyText.text = "$" + newMoney;
+        }
+
+        else
+        {
+            Debug.Log("Offer failed");
+            noticeBoard.GetComponent<TMP_Text>().text = "Offer failed";
+            noticeBoard.GetComponent<noticeBoardController>().StartAnimation();
+        }
+
+        offers.Clear();
+        gameManager.GetComponent<GameManager>().money = newMoney;
+        gameManager.GetComponent<GameManager>().finishSelling();
+        
     }
 }

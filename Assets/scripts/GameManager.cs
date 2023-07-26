@@ -16,7 +16,10 @@ public class GameManager : MonoBehaviour
     public GameObject fishSlider;
     public GameObject fishIcon;
     public GameObject[] icons;
+
     public Sprite[] fishSprites;
+
+    public float money;
 
     public int fishIndex;
 
