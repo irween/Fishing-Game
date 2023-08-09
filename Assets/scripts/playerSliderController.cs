@@ -31,6 +31,9 @@ public class playerSliderController : MonoBehaviour
     void Start()
     {
         timeInterval = timeIntervalMax;
+        int fishIndex = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().fishIndex;
+
+        maxFishCatchCount = maxFishCatchCount * (fishIndex / 2);
     }
 
     // Update is called once per frame

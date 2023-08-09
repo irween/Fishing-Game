@@ -78,32 +78,35 @@ public class sellOffers : MonoBehaviour
 
         float currentMoney = gameManager.GetComponent<GameManager>().money;
 
-        if (Random.Range(1, 100) <= lowOfferRisk & buttonIndex == lowOfferIndex)
+        float offerRandomNumber = Random.Range(1, 100);
+
+        if (buttonIndex == lowOfferIndex & offerRandomNumber <= lowOfferRisk)
         {
             Debug.Log(lowOfferIndex);
             newMoney = currentMoney + offers[lowOfferIndex];
             moneyText.text = "$" + newMoney;
+            noticeBoard.GetComponent<TMP_Text>().text = "Offer Successful";
         }
 
-        if (Random.Range(1, 100) <= mediumOfferRisk & buttonIndex == medOfferIndex)
+        if (buttonIndex == medOfferIndex & offerRandomNumber <= mediumOfferRisk)
         {
             Debug.Log(medOfferIndex);
             newMoney = currentMoney + offers[medOfferIndex];
             moneyText.text = "$" + newMoney;
+            noticeBoard.GetComponent<TMP_Text>().text = "Offer Successful";
         }
 
-        if (Random.Range(1, 100) <= highOfferRisk & buttonIndex == highOfferIndex)
+        if (buttonIndex == highOfferIndex& offerRandomNumber <= highOfferRisk)
         {
             Debug.Log(highOfferIndex);
             newMoney = currentMoney + offers[highOfferIndex];
             moneyText.text = "$" + newMoney;
+            noticeBoard.GetComponent<TMP_Text>().text = "Offer Successful";
         }
 
-        else
+        else if (offerRandomNumber <= lowOfferRisk | offerRandomNumber <= highOfferRisk | offerRandomNumber <= mediumOfferRisk)
         {
-            Debug.Log("Offer failed");
-            noticeBoard.GetComponent<TMP_Text>().text = "Offer failed";
-            noticeBoard.GetComponent<noticeBoardController>().StartAnimation();
+            noticeBoard.GetComponent<TMP_Text>().text = "Offer Failed";
         }
 
         offers.Clear();
