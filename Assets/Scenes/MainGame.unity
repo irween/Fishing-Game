@@ -3688,7 +3688,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1660607195}
-  timeInterval: 10
+  timeOfDay: 0
+  timeOfDayInitial: 0
+  clockTimeHours: 6
+  clockTimeMinutes: 0
+  timeInterval: 1
+  countingDown: 0
 --- !u!114 &1427217512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3820,9 +3825,9 @@ RectTransform:
   m_Father: {fileID: 1775983901}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -765.89764, y: 400.494}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 197.1, y: -94.507}
   m_SizeDelta: {x: 394.206, y: 189.013}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1458234579
@@ -4500,6 +4505,7 @@ MonoBehaviour:
   fishSlider: {fileID: 1562424827}
   fishIcon: {fileID: 1299854320}
   icons: []
+  moneyText: {fileID: 1052379861}
   fishSprites:
   - {fileID: 21300000, guid: e9e615155ea54409e83e9f38f1497a0e, type: 3}
   - {fileID: 21300000, guid: 79fcec0e730f44e02a98b0c9ca7b3ae5, type: 3}
@@ -4512,6 +4518,7 @@ MonoBehaviour:
   dayCycleInterval: 1
   dayCycleIntervalMax: 1
   fishIndex: 0
+  billsCost: 150
 --- !u!1 &1713305714
 GameObject:
   m_ObjectHideFlags: 0
@@ -5009,7 +5016,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -492}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1849765668
@@ -5210,8 +5217,8 @@ MonoBehaviour:
   gameManager: {fileID: 1660607195}
   offers: []
   lowOfferRisk: 90
-  mediumOfferRisk: 70
-  highOfferRisk: 0
+  mediumOfferRisk: 65
+  highOfferRisk: 40
   minLowOffer: 10
   maxLowOffer: 20
   minMedOffer: 20

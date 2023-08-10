@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject fishIcon;
     public GameObject[] icons;
 
+    public TMP_Text moneyText;
+
     public Sprite[] fishSprites;
 
     public float money;
@@ -27,6 +29,9 @@ public class GameManager : MonoBehaviour
     public float dayCycleIntervalMax;
 
     public int fishIndex;
+
+    public float billsCost;
+    private float billsCostIteration = 1;
 
     public IDictionary<int, float> inventory = new Dictionary<int, float>();
 
@@ -53,6 +58,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moneyText.text = "$" + money;
+
         if (isFishCaught == true)
         {
             // print to debug log that the player has caught the fish
@@ -82,8 +89,6 @@ public class GameManager : MonoBehaviour
     {
         // set the catching fish sliders to active
         catchingFishSliders.SetActive(true);
-
-        timeOfDay -= dayCycleInterval * 5;
     }
 
     public void updateFishInventory(int fishIndex)
@@ -143,12 +148,23 @@ public class GameManager : MonoBehaviour
         Debug.Log(inventoryIndex);
         Debug.Log(inventory[inventoryIndex]);
         sellObject.GetComponent<sellOffers>().SellingFish(inventory[inventoryIndex]);
-
-        timeOfDay -= dayCycleInterval * 2;
     }
 
     public void finishSelling()
     {
         sellMenu.SetActive(false);
+    }
+
+    public void endOfDayCycle()
+    {
+        Debug.Log(billsCost);
+        money -= billsCost;
+        if (money <= 0)
+        {
+            Debug.Log("Game Over");
+        }
+
+        billsCost = (20 * billsCostIteration * billsCostIteration) + 150;
+        billsCostIteration++;
     }
 }

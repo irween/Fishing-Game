@@ -6,25 +6,53 @@ using TMPro;
 public class clockController : MonoBehaviour
 {
     public GameObject gameManager;
-    private float timeOfDay;
-    private float timeOfDayInitial;
+    public float timeOfDay;
+    public float timeOfDayInitial;
+
+    public float clockTimeHours;
+    public float clockTimeMinutes;
 
     public float timeInterval;
+
+    public bool countingDown;
+
+    private bool dayCycleFinished;
 
     void Start()
     {
         timeOfDayInitial = gameManager.GetComponent<GameManager>().timeOfDay;
-        gameObject.GetComponent<TMP_Text>().text = timeOfDayInitial.ToString();
+        gameObject.GetComponent<TMP_Text>().text = string.Format("{0}:{1}0", clockTimeHours, clockTimeMinutes);
+        countingDown = true;
+        dayCycleFinished = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         timeOfDay = gameManager.GetComponent<GameManager>().timeOfDay;
-        if ((timeOfDayInitial - timeOfDay) == timeInterval)
+        if ((timeOfDayInitial - timeOfDay) == timeInterval && countingDown)
         {
-            gameObject.GetComponent<TMP_Text>().text = timeOfDay.ToString();
+            clockTimeMinutes += 1;
+            if (clockTimeMinutes == 6)
+            {
+                clockTimeMinutes = 0;
+                clockTimeHours += 1;
+            }
+
+            gameObject.GetComponent<TMP_Text>().text = string.Format("{0}:{1}0", clockTimeHours, clockTimeMinutes);
             timeOfDayInitial = timeOfDay;
+
+            if (clockTimeHours == 18)
+            {
+                countingDown = false;
+                dayCycleFinished = true;
+            }
+        }
+
+        if (dayCycleFinished)
+        {
+            gameManager.GetComponent<GameManager>().endOfDayCycle();
+            dayCycleFinished = false;
         }
     }
 }
