@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
 
     public float money;
 
+    public float dayCycleMax;
+    public float timeOfDay;
+    public float dayCycleInterval;
+    public float dayCycleIntervalMax;
+
     public int fishIndex;
 
     public IDictionary<int, float> inventory = new Dictionary<int, float>();
@@ -41,6 +46,8 @@ public class GameManager : MonoBehaviour
 
             inventory.Add(i, 0);
         }
+
+        timeOfDay = dayCycleMax;
     }
 
     // Update is called once per frame
@@ -55,13 +62,28 @@ public class GameManager : MonoBehaviour
             // hide the catching fish sliders
             catchingFishSliders.SetActive(false);
             resetCatchFish();
-        }        
+        }
+
+        if (timeOfDay <= 0)
+        {
+            Debug.Log("Day Over");
+        }
+
+        if (dayCycleInterval <= 0)
+        {
+            timeOfDay = Mathf.RoundToInt(timeOfDay -= dayCycleIntervalMax);
+            dayCycleInterval = dayCycleIntervalMax;
+        }
+
+        dayCycleInterval -= Time.deltaTime;
     }
 
     public void catchingFish()
     {
         // set the catching fish sliders to active
         catchingFishSliders.SetActive(true);
+
+        timeOfDay -= dayCycleInterval * 5;
     }
 
     public void updateFishInventory(int fishIndex)
@@ -121,6 +143,8 @@ public class GameManager : MonoBehaviour
         Debug.Log(inventoryIndex);
         Debug.Log(inventory[inventoryIndex]);
         sellObject.GetComponent<sellOffers>().SellingFish(inventory[inventoryIndex]);
+
+        timeOfDay -= dayCycleInterval * 2;
     }
 
     public void finishSelling()
