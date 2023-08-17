@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject fishSlider;
     public GameObject fishIcon;
     public GameObject[] icons;
+    public GameObject noticeBoard;
 
     public TMP_Text moneyText;
 
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
     public int fishIndex;
 
     public float billsCost;
-    private float billsCostIteration = 1;
+    private float currentDay = 1;
 
     public IDictionary<int, float> inventory = new Dictionary<int, float>();
 
@@ -89,6 +90,12 @@ public class GameManager : MonoBehaviour
     {
         // set the catching fish sliders to active
         catchingFishSliders.SetActive(true);
+    }
+
+    public void SetMaxFishCatchCount()
+    {
+        float maxFishCatchCountBase = gameObject.GetComponent<fishCatchController>().maxFishCatchCountBase;
+        gameObject.GetComponent<fishCatchController>().maxFishCatchCount = maxFishCatchCountBase + (maxFishCatchCountBase * (fishIndex/2));
     }
 
     public void updateFishInventory(int fishIndex)
@@ -157,14 +164,16 @@ public class GameManager : MonoBehaviour
 
     public void endOfDayCycle()
     {
+        noticeBoard.GetComponent<noticeBoard>().DisplayWord("End of the Day");
         Debug.Log(billsCost);
         money -= billsCost;
         if (money <= 0)
         {
             Debug.Log("Game Over");
+            noticeBoard.GetComponent<noticeBoard>().DisplayWord("Game Over");
         }
 
-        billsCost = (20 * billsCostIteration * billsCostIteration) + 150;
-        billsCostIteration++;
+        billsCost = (20 * currentDay * currentDay) + 150;
+        currentDay++;
     }
 }

@@ -1,23 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class noticeBoard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void StopAnimation()
     {
         gameObject.SetActive(false);
+    }
+
+    public void DisplayWord(string text)
+    {
+        gameObject.GetComponent<TMP_Text>().text = text;
+        gameObject.GetComponent<Animator>().Play("On");
     }
 }

@@ -18,7 +18,7 @@ public class fishVariationController : MonoBehaviour
     public int fishIndex;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // set fish type max to the length of the array
         fishSprites = gameManager.GetComponent<GameManager>().fishSprites;
@@ -27,6 +27,8 @@ public class fishVariationController : MonoBehaviour
         fishIndex = Random.Range(0, fishTypesMax);
         fish.GetComponent<Image>().sprite = fishSprites[fishIndex];
         gameManager.GetComponent<GameManager>().fishIndex = fishIndex;
+
+        gameManager.GetComponent<GameManager>().SetMaxFishCatchCount();
     }
 
     public void resetFish()
@@ -35,5 +37,6 @@ public class fishVariationController : MonoBehaviour
         fishIndex = Random.Range(0, fishTypesMax);
         fish.GetComponent<Image>().sprite = fishSprites[fishIndex];
         gameManager.GetComponent<GameManager>().fishIndex = fishIndex;
+        gameManager.GetComponent<GameManager>().SetMaxFishCatchCount();
     }
 }

@@ -7,20 +7,16 @@ public class fishCatchController : MonoBehaviour
     public GameObject player;
 
     public float maxFishCatchCount;
+    public float maxFishCatchCountBase;
+    public float fishCatchCount;
 
     public bool isFishCaught = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     { 
         // get the players fish catch count
-        float fishCatchCount = player.GetComponent<playerSliderController>().fishCatchCount;
+        fishCatchCount = player.GetComponent<playerSliderController>().fishCatchCount;
         player.GetComponent<playerSliderController>().maxFishCatchCount = maxFishCatchCount;
 
         if (fishCatchCount >= maxFishCatchCount & !isFishCaught)

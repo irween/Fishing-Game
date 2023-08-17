@@ -86,8 +86,7 @@ public class sellOffers : MonoBehaviour
             newMoney = currentMoney + offers[lowOfferIndex];
             moneyText.text = "$" + newMoney;
             noticeBoard.SetActive(true);
-            noticeBoard.GetComponent<TMP_Text>().text = "Offer Successful";
-            noticeBoard.GetComponent<Animator>().Play("On");
+            noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Successful");
         }
 
         if (buttonIndex == medOfferIndex & offerRandomNumber <= mediumOfferRisk)
@@ -96,8 +95,7 @@ public class sellOffers : MonoBehaviour
             newMoney = currentMoney + offers[medOfferIndex];
             moneyText.text = "$" + newMoney;
             noticeBoard.SetActive(true);
-            noticeBoard.GetComponent<TMP_Text>().text = "Offer Successful";
-            noticeBoard.GetComponent<Animator>().Play("On");
+            noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Successful");
         }
 
         if (buttonIndex == highOfferIndex& offerRandomNumber <= highOfferRisk)
@@ -106,14 +104,13 @@ public class sellOffers : MonoBehaviour
             newMoney = currentMoney + offers[highOfferIndex];
             moneyText.text = "$" + newMoney;
             noticeBoard.SetActive(true);
-            noticeBoard.GetComponent<TMP_Text>().text = "Offer Successful";
-            noticeBoard.GetComponent<Animator>().Play("On");
+            noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Successful");
         }
 
         else if (offerRandomNumber <= lowOfferRisk | offerRandomNumber <= highOfferRisk | offerRandomNumber <= mediumOfferRisk)
         {
             noticeBoard.SetActive(true);
-            noticeBoard.GetComponent<TMP_Text>().text = "Offer Failed";
+            noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Failed");
             noticeBoard.GetComponent<Animator>().Play("On");
         }
 
