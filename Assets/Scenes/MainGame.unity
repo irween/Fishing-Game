@@ -2617,7 +2617,8 @@ MonoBehaviour:
   fishCatchCount: 0
   maxFishCatchCount: 1000
   fishCatchInterval: 1
-  speed: 1
+  speed: 2.5
+  gravity: 0.5
   difficulty: 0
 --- !u!1 &836063086
 GameObject:

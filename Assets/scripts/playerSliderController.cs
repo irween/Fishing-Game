@@ -23,6 +23,7 @@ public class playerSliderController : MonoBehaviour
 
     // declaring speed variable
     public float speed;
+    public float gravity;
 
     // declaring difficulty variable
     public float difficulty;
@@ -37,14 +38,21 @@ public class playerSliderController : MonoBehaviour
     void Update()
     {
         // if the player holds the up or down arrow key, the playerSlider will move up or down
+        //if (Input.GetKey(KeyCode.UpArrow))
+        //{
+            //playerSlider.value += speed * Time.deltaTime;
+        //}
+        //else if (Input.GetKey(KeyCode.DownArrow))
+        //{
+            //playerSlider.value -= speed * Time.deltaTime;
+        //}
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
             playerSlider.value += speed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            playerSlider.value -= speed * Time.deltaTime;
-        }
+
+        playerSlider.value -= gravity * Time.deltaTime;
 
         // if the player slider position is equal to the fish slider position, the fish catch count will increase
         if ((fishSlider.value >= playerSlider.value - hitbox) && (fishSlider.value <= playerSlider.value + hitbox))
