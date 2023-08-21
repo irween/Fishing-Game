@@ -7,7 +7,10 @@ public class fishSlider : MonoBehaviour
 {
     public Slider slider;
 
-    public float speed = 1.0f;
+    private float speed;
+    public float speedMax;
+    public float speedMin;
+
     public float difficulty = 1.0f;
 
     public float timeInterval;
@@ -17,6 +20,8 @@ public class fishSlider : MonoBehaviour
     public float minRandHeight;
 
     public bool flipMovement;
+
+    public GameObject fishSprite;
 
     void Start()
     {
@@ -37,6 +42,8 @@ public class fishSlider : MonoBehaviour
 
     void Update()
     {
+        difficulty = fishSprite.GetComponent<fishVariationController>().fishIndex + 1;
+
         if (slider.value == maxRandHeight || slider.value == minRandHeight)
         {
             flipMovement = !flipMovement;
@@ -59,7 +66,7 @@ public class fishSlider : MonoBehaviour
         }
         else
         {
-            speed = Random.Range(0.5f, 1);
+            speed = Random.Range(speedMin, speedMax);
             timeInterval = timeIntervalMax;
         }
 

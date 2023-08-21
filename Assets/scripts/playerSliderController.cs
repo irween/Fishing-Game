@@ -37,16 +37,6 @@ public class playerSliderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if the player holds the up or down arrow key, the playerSlider will move up or down
-        //if (Input.GetKey(KeyCode.UpArrow))
-        //{
-            //playerSlider.value += speed * Time.deltaTime;
-        //}
-        //else if (Input.GetKey(KeyCode.DownArrow))
-        //{
-            //playerSlider.value -= speed * Time.deltaTime;
-        //}
-
         if (Input.GetKey(KeyCode.UpArrow))
         {
             playerSlider.value += speed * Time.deltaTime;
