@@ -7,9 +7,9 @@ public class fishSelling : MonoBehaviour
     // game objects
     public GameObject gameManager;
 
-    public int iconIndex;
+    public int iconIndex; // index of icon
 
-    public void triggerSellEvent()
+    public void triggerSellEvent() // when the offer buton is pressed trigger the selling events
     {
         gameManager.GetComponent<GameManager>().triggerSellingEvent(iconIndex);
         gameManager.GetComponent<GameManager>().removeItemFromInventory(iconIndex);

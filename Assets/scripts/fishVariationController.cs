@@ -6,15 +6,19 @@ using System.Linq;
 
 public class fishVariationController : MonoBehaviour
 {
-    // declaring fish variables
+    // max types of fish
     public int fishTypesMax;
 
+    // fish sprites
     public Sprite[] fishSprites;
 
+    // game manager
     public GameObject gameManager;
 
+    // current index of the fish
     public int fishIndex;
 
+    // initial delay/timer to trigger the reeling minigame
     private float timeToFish;
     public float delay;
     // Start is called before the first frame update
@@ -32,6 +36,7 @@ public class fishVariationController : MonoBehaviour
 
     }
 
+    // resets the fish slider to the current fish
     public void ResetFish()
     {
         fishIndex = Random.Range(0, fishTypesMax);
@@ -40,12 +45,14 @@ public class fishVariationController : MonoBehaviour
 
     private void Update()
     {
+        // counting the timer
         timeToFish += Time.deltaTime;
     }
 
+    // when the player collides with the fish setting the slider fish to the current fish in the game manager
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Hook") && timeToFish >= delay)
+        if (collision.CompareTag("Hook") && timeToFish >= delay) // won't trigger if the delay hasn't been long enough
         {
             gameManager.GetComponent<GameManager>().SetSliderFish(fishIndex);
             timeToFish = 0;

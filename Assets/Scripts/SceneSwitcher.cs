@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    public void StartGame()
+    public void StartGame() // switch to the main game scene
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
