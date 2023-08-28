@@ -12,18 +12,19 @@ public class clockController : MonoBehaviour
     public float clockTimeHours;
     public float clockTimeMinutes;
 
+    public float clockTimeHoursInitial;
+    public float clockTimeMinutesInitial;
+
     public float timeInterval;
 
     public bool countingDown;
 
-    private bool dayCycleFinished;
 
     void Start()
     {
         timeOfDayInitial = gameManager.GetComponent<GameManager>().timeOfDay;
         gameObject.GetComponent<TMP_Text>().text = string.Format("{0}:{1}0", clockTimeHours, clockTimeMinutes);
         countingDown = true;
-        dayCycleFinished = false;
     }
 
     // Update is called once per frame
@@ -45,14 +46,16 @@ public class clockController : MonoBehaviour
             if (clockTimeHours == 18)
             {
                 countingDown = false;
-                dayCycleFinished = true;
             }
         }
+    }
 
-        if (dayCycleFinished)
-        {
-            gameManager.GetComponent<GameManager>().endOfDayCycle();
-            dayCycleFinished = false;
-        }
+    public void RestartClock()
+    {
+        clockTimeHours = clockTimeHoursInitial;
+        clockTimeMinutes = clockTimeMinutesInitial;
+        gameObject.GetComponent<TMP_Text>().text = string.Format("{0}:{1}0", clockTimeHours, clockTimeMinutes);
+        countingDown = true;
+        timeOfDay = timeOfDayInitial = timeOfDay = gameManager.GetComponent<GameManager>().timeOfDay;
     }
 }

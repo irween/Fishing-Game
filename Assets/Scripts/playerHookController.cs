@@ -24,13 +24,6 @@ public class playerHookController : MonoBehaviour
         rb2D = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-    }
-
     void FixedUpdate()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");

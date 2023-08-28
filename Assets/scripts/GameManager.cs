@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,14 @@ public class GameManager : MonoBehaviour
     public GameObject[] icons;
     public GameObject noticeBoard;
     public GameObject catchingFishGame;
+    public GameObject startDayButton;
+    public GameObject buyMenu;
+    public GameObject buyOffers;
+    public GameObject sellOffers;
+    public GameObject gameOverScreen;
+    public TMP_Text scoreText;
+
+    private int iteration;
 
     public GameObject inventoryObject;
     private bool inventoryBool = false;
@@ -36,12 +45,14 @@ public class GameManager : MonoBehaviour
     public int fishIndex;
 
     public float billsCost;
-    private float currentDay = 1;
+    static int currentDay = 1;
 
     public GameObject catchingFishTimer;
     private bool catchingFishToggle = false;
     public float catchingFishDelay;
     private float catchingFishTime = 0;
+
+    private bool countingDown = true;
 
     public IDictionary<int, float> inventory = new Dictionary<int, float>();
 
@@ -64,6 +75,7 @@ public class GameManager : MonoBehaviour
         }
 
         timeOfDay = dayCycleMax;
+        startDayButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -96,14 +108,16 @@ public class GameManager : MonoBehaviour
             resetCatchFish();
         }
 
-        if (timeOfDay <= 0)
+        if (timeOfDay <= 0 && countingDown)
         {
             Debug.Log("Day Over");
+            countingDown = false;
+            endOfDayCycle();
         }
 
         if (dayCycleInterval <= 0)
         {
-            timeOfDay = Mathf.RoundToInt(timeOfDay -= dayCycleIntervalMax);
+            timeOfDay = Mathf.RoundToInt(timeOfDay -= 1);
             dayCycleInterval = dayCycleIntervalMax;
         }
 
@@ -123,7 +137,10 @@ public class GameManager : MonoBehaviour
             catchingFishTime += Time.deltaTime;
         }
 
-        dayCycleInterval -= Time.deltaTime;
+        if (countingDown)
+        {
+            dayCycleInterval -= Time.deltaTime;
+        }
     }
 
     public void catchingFish()
@@ -190,6 +207,7 @@ public class GameManager : MonoBehaviour
         catchingFishTime = 0;
         catchingFishToggle = false;
         isFishCaught = false;
+        countingDown = true;
     }
 
     public void triggerSellingEvent(int inventoryIndex)
@@ -214,10 +232,21 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Game Over");
             noticeBoard.GetComponent<noticeBoard>().DisplayWord("Game Over");
+            gameOverScreen.SetActive(true);
+            scoreText.text = currentDay + " Day";
         }
 
         billsCost = (20 * currentDay * currentDay) + 150;
         currentDay++;
+
+        buyMenu.SetActive(true);
+        buyOffers.GetComponent<FishingRodBuy>().catchSpeedCost += 50 * (iteration * iteration) + buyOffers.GetComponent<FishingRodBuy>().catchSpeedCostInitial;
+        buyOffers.GetComponent<FishingRodBuy>().hitBoxCost += 50 * (iteration * iteration) + buyOffers.GetComponent<FishingRodBuy>().hitBoxCostInitial;
+        buyOffers.GetComponent<FishingRodBuy>().hookSpeedCost += 50 * (iteration * iteration) + buyOffers.GetComponent<FishingRodBuy>().hookSpeedCostInitial;
+
+        iteration++;
+
+        sellOffers.GetComponent<sellOffers>().difficulty += 0.5f;
     }
 
     public void SetSliderFish(int index)
@@ -230,5 +259,24 @@ public class GameManager : MonoBehaviour
         catchingFishToggle = false;
         catchingFishTimer.GetComponent<Slider>().value = 0;
         catchingFishTime = 0;
+    }
+
+    public void StartNextDay()
+    {
+        timeOfDay = dayCycleMax;
+        startDayButton.SetActive(false);
+        resetCatchFish();
+        for (int i = 0; i < icons.Length; i++)
+        {
+            removeItemFromInventory(i);
+        }
+        timeOfDay = dayCycleMax;
+        var clockObject = GameObject.FindAnyObjectByType<clockController>();
+        clockObject.GetComponent<clockController>().RestartClock();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

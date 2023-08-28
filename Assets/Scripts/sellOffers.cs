@@ -38,6 +38,8 @@ public class sellOffers : MonoBehaviour
     public float cost;
     public float newMoney;
 
+    public float difficulty = 1;
+
     private void Start()
     {
         moneyText.text = "$0";
@@ -50,22 +52,26 @@ public class sellOffers : MonoBehaviour
             int textObjectIndex = System.Array.IndexOf(sellButtonText, textObject);
             if (textObjectIndex == lowOfferIndex)
             {
-                cost = Random.Range(minLowOffer, maxLowOffer);
+                cost = Random.Range(minLowOffer, maxLowOffer) * difficulty;
             }
 
             else if (textObjectIndex == medOfferIndex)
             {
-                cost = Random.Range(minMedOffer, maxMedOffer);
+                cost = Random.Range(minMedOffer, maxMedOffer) * difficulty;
             }
 
             else if (textObjectIndex == highOfferIndex)
             {
-                cost = Random.Range(minHighOffer, maxHighOffer);
+                cost = Random.Range(minHighOffer, maxHighOffer) * difficulty;
             }
 
             cost = Mathf.Round(cost);
 
             Debug.Log(cost);
+            if (fishQuality == 0)
+            {
+                fishQuality += 0.5f;
+            }
             cost = cost * fishQuality;
             offers.Add(cost);
             textObject.text = "$" + cost;
@@ -85,8 +91,12 @@ public class sellOffers : MonoBehaviour
             Debug.Log(lowOfferIndex);
             newMoney = currentMoney + offers[lowOfferIndex];
             moneyText.text = "$" + newMoney;
-            noticeBoard.SetActive(true);
             noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Successful");
+        }
+
+        else if (offerRandomNumber >= lowOfferRisk & buttonIndex == lowOfferIndex)
+        {
+            noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Failed");
         }
 
         if (buttonIndex == medOfferIndex & offerRandomNumber <= mediumOfferRisk)
@@ -94,24 +104,25 @@ public class sellOffers : MonoBehaviour
             Debug.Log(medOfferIndex);
             newMoney = currentMoney + offers[medOfferIndex];
             moneyText.text = "$" + newMoney;
-            noticeBoard.SetActive(true);
             noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Successful");
         }
 
-        if (buttonIndex == highOfferIndex& offerRandomNumber <= highOfferRisk)
+        else if (offerRandomNumber >= mediumOfferRisk & buttonIndex == medOfferIndex)
+        {
+            noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Failed");
+        }
+
+        if (buttonIndex == highOfferIndex & offerRandomNumber <= highOfferRisk)
         {
             Debug.Log(highOfferIndex);
             newMoney = currentMoney + offers[highOfferIndex];
             moneyText.text = "$" + newMoney;
-            noticeBoard.SetActive(true);
             noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Successful");
         }
 
-        else if (offerRandomNumber <= lowOfferRisk | offerRandomNumber <= highOfferRisk | offerRandomNumber <= mediumOfferRisk)
+        else if (offerRandomNumber >= highOfferRisk & buttonIndex == highOfferIndex)
         {
-            noticeBoard.SetActive(true);
             noticeBoard.GetComponent<noticeBoard>().DisplayWord("Offer Failed");
-            noticeBoard.GetComponent<Animator>().Play("On");
         }
 
         offers.Clear();

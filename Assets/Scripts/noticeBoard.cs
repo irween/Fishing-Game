@@ -12,6 +12,7 @@ public class noticeBoard : MonoBehaviour
 
     public void DisplayWord(string text)
     {
+        gameObject.SetActive(true);
         gameObject.GetComponent<TMP_Text>().text = text;
         gameObject.GetComponent<Animator>().Play("On");
     }
